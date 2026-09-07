@@ -1,13 +1,13 @@
+import streamlit as st
+
+# st.set_page_config는 무조건 코드의 맨 처음에 와야 합니다!
+st.set_page_config(page_title="인공지능 대량 원고 추출기", page_icon="🎬")
+
 import os
 import tempfile
 from groq import Groq
 
-# 최신/구버전 모듈 충돌을 막기 위한 안전 import
-try:
-    from moviepy.editor import VideoFileClip
-except ImportError:
-    from moviepy import VideoFileClip
-
+# ... 이후 나머지 코드들
 # 1. 🔥 여기에 본인의 진짜 API 키를 적어두면 화면에는 보이지 않고 컴퓨터만 몰래 사용합니다.
 api_key = "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"  # 반드시 본인의 키로 변경하세요!
 
