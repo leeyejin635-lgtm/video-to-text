@@ -13,7 +13,7 @@ st.set_page_config(page_title="인공지능 대량 원고 추출기", page_icon=
 st.title("🎬 인공지능 대량 원고 추출 웹사이트")
 st.write("여러 개의 영상 파일을 한 번에 드래그해서 올리면 순서대로 화면에 원고를 띄워줍니다!")
 
-api_key = "여기에_본인_API_키_입력" 
+api_key = "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" 
 
 uploaded_files = st.file_uploader("영상을 여러 개 드래그해서 놓으세요 (.mp4)", type=["mp4", "mov", "avi"], accept_multiple_files=True)
 
