@@ -24,13 +24,13 @@ if uploaded_files:
         
         with st.spinner("영상을 분석하고 원고를 작성 중입니다..."):
             try:
+                # 🛠️ 한글 파일명 충돌을 막기 위해 suffix를 영어(.mp4)로 고정하고 안전하게 임시 파일 생성
                 with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
                     temp_video.write(uploaded_file.read())
                     video_path = temp_video.name
 
                 audio_path = video_path.replace('.mp4', '.mp3')
 
-                # 속도 최적화: 비디오 전체를 로드하지 않고 오디오만 빠르게 추출하며 비트레이트를 낮춰 용량 감소
                 clip = VideoFileClip(video_path, audio_fps=16000, target_resolution=None)
                 clip.audio.write_audiofile(audio_path, bitrate="48k", logger=None)
                 clip.close()
@@ -46,7 +46,7 @@ if uploaded_files:
                 st.success(f"🎉 [{uploaded_file.name}] 추출 완료!")
                 st.write(result_text)
                 
-                # 사용한 임시 파일들 깔끔하게 삭제하여 서버 용량/부하 관리
+                # 임시 파일 삭제
                 if os.path.exists(video_path):
                     os.remove(video_path)
                 if os.path.exists(audio_path):
