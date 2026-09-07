@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import tempfile
+import uuid
 from groq import Groq
 
 try:
@@ -24,13 +25,15 @@ if uploaded_files:
         
         with st.spinner("영상을 분석하고 원고를 작성 중입니다..."):
             try:
-                # 🛠️ 한글 파일명 충돌을 막기 위해 suffix를 영어(.mp4)로 고정하고 안전하게 임시 파일 생성
-                with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
-                    temp_video.write(uploaded_file.read())
-                    video_path = temp_video.name
+                # 🛠️ 한글 파일명으로 인한 인코딩 에러를 막기 위해 고유한 영문/숫자 무작위 이름으로 임시 파일 생성
+                random_name = str(uuid.uuid4())
+                video_path = os.path.join(tempfile.gettempdir(), f"{random_name}.mp4")
+                audio_path = os.path.join(tempfile.gettempdir(), f"{random_name}.mp3")
 
-                audio_path = video_path.replace('.mp4', '.mp3')
+                with open(video_path, "wb") as f:
+                    f.write(uploaded_file.read())
 
+                # 오디오 추출 최적화
                 clip = VideoFileClip(video_path, audio_fps=16000, target_resolution=None)
                 clip.audio.write_audiofile(audio_path, bitrate="48k", logger=None)
                 clip.close()
@@ -46,7 +49,7 @@ if uploaded_files:
                 st.success(f"🎉 [{uploaded_file.name}] 추출 완료!")
                 st.write(result_text)
                 
-                # 임시 파일 삭제
+                # 사용한 임시 파일 안전 삭제
                 if os.path.exists(video_path):
                     os.remove(video_path)
                 if os.path.exists(audio_path):
