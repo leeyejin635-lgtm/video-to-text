@@ -1,8 +1,12 @@
-import streamlit as st
 import os
 import tempfile
-from moviepy.editor import VideoFileClip
 from groq import Groq
+
+# 최신/구버전 모듈 충돌을 막기 위한 안전 import
+try:
+    from moviepy.editor import VideoFileClip
+except ImportError:
+    from moviepy import VideoFileClip
 
 # 1. 🔥 여기에 본인의 진짜 API 키를 적어두면 화면에는 보이지 않고 컴퓨터만 몰래 사용합니다.
 api_key = "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"  # 반드시 본인의 키로 변경하세요!
