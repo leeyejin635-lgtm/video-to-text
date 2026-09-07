@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 import tempfile
-from moviepy import VideoFileClip
+from moviepy.editor import VideoFileClip
 from groq import Groq
 
 # 1. 🔥 여기에 본인의 진짜 API 키를 적어두면 화면에는 보이지 않고 컴퓨터만 몰래 사용합니다.
