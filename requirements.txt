@@ -1,4 +1,4 @@
 streamlit
 moviepy
 groq
-requests
+numpy
