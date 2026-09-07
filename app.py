@@ -22,11 +22,9 @@ st.write("여러 개의 영상 파일을 한 번에 드래그해서 올리면 �
 # 파일 업로드 칸
 uploaded_files = st.file_uploader("영상을 여러 개 드래그해서 놓으세요 (.mp4)", type=["mp4", "mov"], accept_multiple_files=True)
 
-if st.button("🚀 대량 원고 추출 시작"):
-    if not uploaded_files:
-        st.warning("영상 파일을 한 개 이상 업로드해 주세요!")
-    else:
-        client = Groq(api_key=api_key)
+
+
+ client = Groq(api_key=api_key)
         
         for uploaded_file in uploaded_files:
             st.markdown(f"### ⏳ **{uploaded_file.name}** 작업 중...")
