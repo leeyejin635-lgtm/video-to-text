@@ -2,3 +2,4 @@ streamlit
 moviepy
 groq
 numpy
+imageio-ffmpeg
